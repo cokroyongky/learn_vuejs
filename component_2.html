@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Components - Daengweb</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+​
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <style type="text/css">
+        body {
+            padding-top: 60px;
+        }
+    </style>
+</head>
+<body>
+    <div id="dw" class="container">
+        <domain v-model="domain" @applied="cekDomains"></domain>
+        <p v-if="tersedia"><strong>{{ domain }}</strong> Tersedia!</p>
+    </div>
+​
+    <script type="text/javascript" src="https://unpkg.com/vue@2.5.6/dist/vue.js"></script>
+    
+    <template id="form">
+        <div>
+            <input class="form-control" ref="input" :value="value" @input="cekDomain($event.target.value)">
+            <button v-on:click="cekDomains" class="btn btn-danger">Cek</button>
+        </div>
+    </template>
+    <script type="text/javascript">
+        Vue.component('domain', {
+            props: ['value'],
+            template: '#form',
+            methods: {
+                cekDomain(value) {
+                    this.$emit('input', value);
+                },
+                cekDomains() {
+                    this.$emit('applied');
+                }
+            }
+        });
+​
+        new Vue({
+            el: '#dw',
+            data: {
+                domain: '',
+                tersedia: false
+            },
+            methods: {
+                cekDomains() {
+                    this.tersedia = true;
+                }
+            }
+        }); 
+    </script>
+</body>
+</html>
